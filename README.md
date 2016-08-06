@@ -1,6 +1,6 @@
 # PaintingCannon
 Game Swift
-
+![alt tag](https://github.com/ChungMai/Image/blob/master/PaintingCannonGame.png)
 The goal of Painting Cannon game is collect three different colors of paint: red, green and blue. 
 The paint falls from the sky in cans that are kept floating by balloons, and you make sure each can has the right color befor it fall through the bottom of the screen. 
 You can change the collor of the paint by shooting a paint ball of the desized collors at the falling can. 
