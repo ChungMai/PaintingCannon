@@ -17,7 +17,7 @@ class Live : SKNode
         super.init()
         for index in 0 ..< numberLive {
             let livesSpr = SKSpriteNode(imageNamed: "lives")
-            livesSpr.position = CGPoint(x: -510 + index * Int(livesSpr.size.width), y: 300)
+            livesSpr.position = CGPoint(x: -460 + index * Int(livesSpr.size.width), y: 300)
             self.addChild(livesSpr)
             self.zPosition = 4
         }
@@ -33,7 +33,7 @@ class Live : SKNode
         for index in 0 ..< self.children.count
         {
             let live =  self.children[index] as SKNode
-            live.hidden = index >= GameScene.world.live.numberLive
+            live.isHidden = index >= GameScene.world.live.numberLive
             
         }
     }
@@ -43,7 +43,7 @@ class Live : SKNode
         for index in 0 ..< self.children.count
         {
             let live =  self.children[index] as SKNode
-            live.hidden = false
+            live.isHidden = false
             
         }
     }

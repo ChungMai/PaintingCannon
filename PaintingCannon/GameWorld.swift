@@ -10,17 +10,17 @@ class GameWorld {
     var scoreLab = SKLabelNode()
     var cannon = Cannon()
     var ball = Ball()
-    var can1 = PaintCan(pOffset: -10, targetColor: UIColor.redColor())
-    var can2 = PaintCan(pOffset: 190, targetColor: UIColor.greenColor())
-    var can3 = PaintCan(pOffset: 390, targetColor: UIColor.blueColor())
+    var can1 = PaintCan(pOffset: -10, targetColor: UIColor.red)
+    var can2 = PaintCan(pOffset: 190, targetColor: UIColor.green)
+    var can3 = PaintCan(pOffset: 390, targetColor: UIColor.blue)
     var live = Live()
     var score = 0
     var backgroundMusic = Sound("snd_music")
     
     init()
     {
-        board.position = CGPoint(x: -450, y: 280)
-        scoreLab.position = CGPoint(x: -440, y: 220)
+        board.position = CGPoint(x: -410, y: 280)
+        scoreLab.position = CGPoint(x: -390, y: 220)
         background.zPosition = 0
         gameover.zPosition = 2
         board.zPosition = 3
@@ -37,7 +37,7 @@ class GameWorld {
         node.addChild(gameover)
         node.addChild(board)
         node.addChild(scoreLab)        
-        gameover.hidden = true
+        gameover.isHidden = true
         
         // play background music
         backgroundMusic.looping = true
@@ -45,13 +45,13 @@ class GameWorld {
        // backgroundMusic.play()
     }
     
-    func handleInput(inputHelper: InputHelper)
+    func handleInput(_ inputHelper: InputHelper)
     {
             cannon.handleInput(inputHelper)
             ball.handleInput(inputHelper)
     }
 
-    func updateDelta(delta: NSTimeInterval)
+    func updateDelta(_ delta: TimeInterval)
     {
         ball.updateDelta(delta)
         can1.updateDelta(delta)
@@ -60,14 +60,14 @@ class GameWorld {
         scoreLab.text = "Score: \(score)"
     }
     
-    func isOutsideWorld(pos: CGPoint) -> Bool
+    func isOutsideWorld(_ pos: CGPoint) -> Bool
     {
         return pos.x < -size.width/2 || pos.x > size.width/2 || pos.y < -size.height/2
     }
     
     func reset()
     {
-        gameover.hidden = true
+        gameover.isHidden = true
         score = 0
         scoreLab.text = "Score: \(score)"
         ball.reset()

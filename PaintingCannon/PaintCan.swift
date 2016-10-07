@@ -8,7 +8,7 @@ class PaintCan :  BaseObject{
     
     var positionOffset = CGFloat(0)
     var minVelocity = CGFloat(100)
-    var targetColor = UIColor.redColor()
+    var targetColor = UIColor.red
     var collectPointsSound = Sound("snd_collect_points")
     
     init(pOffset: CGFloat, targetColor : UIColor)
@@ -16,7 +16,7 @@ class PaintCan :  BaseObject{
         super.init(redImage: "can_red", greenImage:  "can_green", blueImage: "can_blue")
         positionOffset = pOffset
         self.zPosition = 1
-        self.hidden = true
+        self.isHidden = true
         self.targetColor = targetColor;
     }
     
@@ -24,21 +24,21 @@ class PaintCan :  BaseObject{
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func updateDelta(delta : NSTimeInterval)
+    override func updateDelta(_ delta : TimeInterval)
     {
-        if self.hidden
+        if self.isHidden
         {
             if randomCGFloat() > 0.01 {
                 return
             }
             
-            self.hidden = false;
+            self.isHidden = false;
             self.position = CGPoint(x:positionOffset, y: GameScene.world.size.height/2 + red.size.height/2 + 5)
             velocity = CGPoint(x:0.0, y: randomCGFloat() * -40 - minVelocity)
             let color = arc4random_uniform(3);
-            red.hidden = color != 0
-            green.hidden = color != 1
-            blue.hidden = color != 2
+            red.isHidden = color != 0
+            green.isHidden = color != 1
+            blue.isHidden = color != 2
         }
         
         self.position.x += velocity.x * CGFloat(delta)
@@ -46,11 +46,11 @@ class PaintCan :  BaseObject{
         
         let bottomPosition = CGPoint(x:self.position.x, y: self.position.y + red.size.height/2)
         if GameScene.world.isOutsideWorld(bottomPosition){
-            self.hidden = true
+            self.isHidden = true
             if(color != targetColor){
                GameScene.world.live.numberLive = GameScene.world.live.numberLive - 1
                GameScene.world.live.updateLive()
-               GameScene.world.gameover.hidden = GameScene.world.live.numberLive != 0
+               GameScene.world.gameover.isHidden = GameScene.world.live.numberLive != 0
             }
             else{
                 GameScene.world.score = (GameScene.world.live.numberLive > 0) ? (GameScene.world.score + 1) : GameScene.world.score;
@@ -70,6 +70,6 @@ class PaintCan :  BaseObject{
     
     
     override func reset(){
-        self.hidden = true
+        self.isHidden = true
     }
 }

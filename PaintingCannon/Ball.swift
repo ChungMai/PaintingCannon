@@ -6,7 +6,7 @@ class Ball : BaseObject {
     init() {
         super.init(redImage: "ball_red", greenImage: "ball_green", blueImage: "ball_blue")
         self.zPosition = 1
-        self.hidden = true
+        self.isHidden = true
     }
     
     convenience init(position: CGPoint) {
@@ -18,14 +18,14 @@ class Ball : BaseObject {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func handleInput(inputHelper: InputHelper)
+    func handleInput(_ inputHelper: InputHelper)
     {
-        let localTouch: CGPoint = GameScene.world.node.convertPoint(inputHelper.touchLocation, toNode: GameScene.world.cannon.red)
-        if inputHelper.isTouching() && !GameScene.world.cannon.red.frame.contains(localTouch) && self.hidden {
+        let localTouch: CGPoint = GameScene.world.node.convert(inputHelper.touchLocation, to: GameScene.world.cannon.red)
+        if inputHelper.isTouching() && !GameScene.world.cannon.red.frame.contains(localTouch) && self.isHidden {
             readyToShoot = true
         }
-        if (!inputHelper.isTouching() && readyToShoot && self.hidden) {
-            self.hidden = false
+        if (!inputHelper.isTouching() && readyToShoot && self.isHidden) {
+            self.isHidden = false
             readyToShoot = false
             velocity.x = (inputHelper.touchLocation.x - GameScene.world.cannon.position.x) * 1.4
             velocity.y = (inputHelper.touchLocation.y - GameScene.world.cannon.position.y) * 1.4
@@ -33,9 +33,9 @@ class Ball : BaseObject {
         }
     }
     
-    override func updateDelta(delta: NSTimeInterval)
+    override func updateDelta(_ delta: TimeInterval)
     {
-        if !self.hidden {
+        if !self.isHidden {
             velocity.x *= 0.99
             velocity.y -= 15
             self.position.x += velocity.x * CGFloat(delta)
@@ -50,19 +50,19 @@ class Ball : BaseObject {
             self.position = CGPoint(x: cannonNode.position.x + adjacent, y: cannonNode.position.y + opposite)
             
             // set the ball color
-            red.hidden = GameScene.world.cannon.red.hidden
-            green.hidden = GameScene.world.cannon.green.hidden
-            blue.hidden = GameScene.world.cannon.blue.hidden
+            red.isHidden = GameScene.world.cannon.red.isHidden
+            green.isHidden = GameScene.world.cannon.green.isHidden
+            blue.isHidden = GameScene.world.cannon.blue.isHidden
         }
         if GameScene.world.isOutsideWorld(self.position) {
-            self.hidden = true
+            self.isHidden = true
             readyToShoot = false
         }
     }
 
     override func reset()
     {
-        self.hidden = true
+        self.isHidden = true
         readyToShoot = false
     }
 }

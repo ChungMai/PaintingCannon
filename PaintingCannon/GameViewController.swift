@@ -16,28 +16,28 @@ class GameViewController: UIViewController {
         super.viewWillLayoutSubviews()
         
         let skView = self.view as! SKView
-        skView.multipleTouchEnabled = true
+        skView.isMultipleTouchEnabled = true
         skView.ignoresSiblingOrder = true
         skView.showsFPS = true
         
         var viewSize = skView.bounds.size
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+        if UIDevice.current.userInterfaceIdiom == .phone {
             viewSize.height *= 2
             viewSize.width *= 2
         }
         
         let scene = GameScene(size: viewSize)
-        scene.scaleMode = .AspectFit
+        scene.scaleMode = .aspectFit
         skView.presentScene(scene)
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
     }
